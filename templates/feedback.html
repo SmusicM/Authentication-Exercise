@@ -1,0 +1,27 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+<div>
+<h2>Our Users Feedbacks</h2>
+
+    {%for feedbacks in feedback%}
+  <div class="card">
+  
+    <div class="card-body">
+      <h5 class="card-title"><a href="/users/{{feedbacks.username}}">{{feedbacks.user.username}}</a></h5>
+      <p>{{feedbacks.title}}</p>
+      <p class="card-text">  {{feedbacks.content}}</p>
+   
+      {% if session["username"] == feedbacks.username %}
+      <form  action="/feedback/{{feedbacks.id}}/delete" method="POST">
+        <button class="btn btn-sm btn-danger">X</button>
+      </form>
+      <form action="/feedback/{{feedbacks.id}}/update">
+        <button>Edit</button>
+    </form>
+      {% endif %}
+    </div>
+    </div>
+    {%endfor%}
+  </div>
+{% endblock %}

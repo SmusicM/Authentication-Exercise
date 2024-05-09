@@ -1,0 +1,36 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+<h3>Posting feedback as:</h3>
+<div class="cardbody">
+<div class='card'>
+    <h6 class=' card'>{{user.username}}</h6>
+    <h6 class=' card '>{{user.first_name ~ ' ' ~ user.last_name}}</h6>
+    <h6 class=' card'> {{user.email}}</h6>
+</div>
+</div>
+{% if session["username"] == user.username %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+  {% for field in form
+    if field.widget.input_type != 'hidden' %}
+  <p>
+    {{ field.label }}
+    {{ field(class_="form-control") }}
+
+    {% for error in field.errors %}
+    <span class="form-text text-danger">{{ error }}</span>
+    {% endfor %}
+  </p>
+  {% endfor %}
+
+  <button class="btn btn-success" type="submit">Submit</button>
+
+</form>
+{%else%}
+
+<h1>you cant be here</h1>
+
+{%endif%}
+{% endblock %}

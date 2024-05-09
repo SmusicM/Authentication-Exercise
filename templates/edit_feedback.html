@@ -1,0 +1,44 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+<div class="card">
+<h5>{{feedback.username}}</h5>
+<p>{{feedback.title}}</p>
+<p>{{feedback.content}}</p>
+</div>
+<div>
+    <h3>Update your feedback</h3>
+</div>
+{% if session["username"] == feedback.username %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+  <!--{% for field in form
+    if field.widget.input_type != 'hidden' %}
+  <p>
+    {{ field.label }}
+    {{ field(class_="form-control",placeholder=field.data) }}
+    
+    {% for error in field.errors %}
+    <span class="form-text text-danger">{{ error }}</span>
+    {% endfor %}
+  </p>
+  {% endfor %}-->
+
+  <div>
+    {{form.title.label(class_="form-label")}}
+    {{form.title(class_="form-control",placeholder=feedback.title,value=feedback.title)}}
+</div>
+<div>
+    {{form.content.label(class_="form-label")}}
+    {{form.content(class_="form-control",placeholder=feedback.content,value=feedback.content)}}
+</div>
+
+
+
+  <button class="btn btn-success" type="submit">Submit</button>
+
+</form>
+{% endif %}
+{% endblock %}
